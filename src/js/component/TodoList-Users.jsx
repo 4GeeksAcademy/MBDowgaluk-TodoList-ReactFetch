@@ -1,5 +1,8 @@
 import React, {useEffect, useState} from "react";
 
+// 1º hay que crear el usuario
+// 2º hacer un get de las tareas
+
 export const TodoListUsers = () =>{
     const [ users, setUsers ] = useState();
 
@@ -10,6 +13,7 @@ export const TodoListUsers = () =>{
         const response = await fetch(url);
         if (response.ok){
             const data = await response.json();
+            console.log(data);
             setUsers(data)
         } else {
             return ('Error: ', response.status, response.statusText)
