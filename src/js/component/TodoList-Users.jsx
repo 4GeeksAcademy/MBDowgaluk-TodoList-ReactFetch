@@ -6,7 +6,7 @@ import React, {useEffect, useState} from "react";
 // 4º eliminar usuario
 
 export const TodoListUsers = () =>{
-    const [ user, setUser ] = useState('Merlina');
+    const user = 'Merlina'
     const [ task, setTask] = useState("");
     const [ list, setList ] = useState([]);
 
@@ -60,7 +60,7 @@ export const TodoListUsers = () =>{
         if (response.ok){
             const data = await response.json();
             console.log(data);
-            setList(data)
+            
 
         } else {
             return ('Error: ', response.status, response.statusText)
@@ -78,7 +78,7 @@ export const TodoListUsers = () =>{
         setTask("")
     }
 
-    const deleteTask = async () =>{
+    const deleteUser = async () =>{
         const url = baseUrl + '/user/' + user;
         const options = {
             method: "DELETE"
@@ -92,6 +92,12 @@ export const TodoListUsers = () =>{
         } else {
             return ('Error: ', response.status, response.statusText)
         }
+    }
+
+    const deleteTask= (item) => {
+        setList(list.filter((element, id) =>{
+            return item != element;
+        }))
     }
 
 
@@ -108,7 +114,7 @@ export const TodoListUsers = () =>{
             <button type="button" className="btn btn-warning m-2" onClick={getTodo}> 
                 Obtener ToDos
             </button>
-            <button type="button" className="btn btn-danger m-2" onClick={deleteTask}>
+            <button type="button" className="btn btn-danger m-2" onClick={deleteUser}>
                 Eliminar usuario
             </button>
             <div className="mb-3">
@@ -120,7 +126,8 @@ export const TodoListUsers = () =>{
                 <ul className="list-group"> 
                     {list.map((item, index) => {
                         return <li key={index} className="list-group-item d-flex justify-content-between hidden-icon">
-                            {item.label}: {item.done ? "Terminado" : "Pendiente"}
+                            {item.label}: {item.done ? 'Terminado' : 'Pendiente'}
+                            <span key={index} onClick={() => {deleteTask(item)}}><i className="far fa-trash-alt text-danger"></i></span>
                         </li>
                     })}
                     <span className="list-group-item bg-light text-end fw-lighter">
