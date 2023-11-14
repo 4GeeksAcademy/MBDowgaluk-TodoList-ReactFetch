@@ -95,9 +95,32 @@ export const TodoListUsers = () =>{
     }
 
     const deleteTask= (item) => {
-        setList(list.filter((element, id) =>{
+        const listWithoutDelete = list.filter((element, id) =>{
             return item != element;
-        }))
+        });
+        console.log(listWithoutDelete);
+        setList(listWithoutDelete);
+        actualiceTaskwithDelete(listWithoutDelete)
+    }
+
+    const actualiceTaskwithDelete = async (listWithoutDelete) =>{
+        const url = baseUrl + '/user/' + user;
+        const options = {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(listWithoutDelete)
+        };
+        const response = await fetch(url, options);
+        if (response.ok){
+            const data = await response.json();
+            console.log(data);
+            
+
+        } else {
+            return ('Error: ', response.status, response.statusText)
+        }
     }
 
 
@@ -108,9 +131,17 @@ export const TodoListUsers = () =>{
     return(
         <div className="container">
             <h1 className="text-center m-2">ToDo List</h1>
-            <button type="button" className="btn btn-success m-2" onClick={createUser}>
+            <button type="button" className="btn btn-success m-2" onClick={createUser} data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Crear nuevo usuario
             </button>
+            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-header bg-light rounded">
+                        <h4 className="modal-title fs-5">The user has been created successfully!</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
             <button type="button" className="btn btn-warning m-2" onClick={getTodo}> 
                 Obtener ToDos
             </button>
