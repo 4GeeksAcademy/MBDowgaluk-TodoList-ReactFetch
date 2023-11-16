@@ -137,7 +137,7 @@ export const TodoListUsers = () =>{
             <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-header bg-light rounded">
-                        <h4 className="modal-title fs-5">The user has been created successfully!</h4>
+                        <h3 className="modal-title fs-5">The user has been created successfully!</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                 </div>
